@@ -22,4 +22,12 @@ RUN mkdir -p /go/src /go/bin && chmod -R 777 /go
 ENV GOPATH /go
 ENV PATH /go/bin:$PATH
 
+# install the ec2 cli tools
+RUN apt-get update && \
+    apt-get install -yq --no-install-recommends  awscli groff-base python-pip && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+
+RUN pip install awsebcli
+
 USER jenkins
